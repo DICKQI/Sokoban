@@ -1,6 +1,6 @@
 #include "function.h"
 //0 空地， 1墙壁， 3终点， 4箱子， 5人， 7黑箱子， 8人在终点中
-int map[11][15] = {
+int map1[11][15] = {
 	{ 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1 },
 	{ 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 3, 3, 1 },
 	{ 0, 0, 0, 0, 1, 4, 0, 0, 1, 0, 0, 1, 3, 3, 1 },
@@ -20,7 +20,7 @@ void dmap()
 	{
 		for (int j = 0; j < 15; j++)
 		{
-			switch (map[i][j])
+			switch (map1[i][j])
 			{
 			case 0:
 				putimage(j * 30, i * 30, &nothing);
@@ -56,7 +56,7 @@ void play()
 	{
 		for (int j = 0; j < 15; j++)
 		{
-			if (map[i][j] == 5 || map[i][j] == 8)
+			if (map1[i][j] == 5 || map1[i][j] == 8)
 			{
 				x = i;
 				y = j;
@@ -69,69 +69,69 @@ void play()
 	{
 	case 'a':
 	case 'A':
-		if (map[x][y - 1] == 0 || map[x][y - 1] == 3)
+		if (map1[x][y - 1] == 0 || map1[x][y - 1] == 3)
 		{
-			map[x][y] -= 5;
-			map[x][y - 1] += 5;
+			map1[x][y] -= 5;
+			map1[x][y - 1] += 5;
 		}
-		else if (map[x][y - 1] == 4 || map[x][y - 1] == 7)
+		else if (map1[x][y - 1] == 4 || map1[x][y - 1] == 7)
 		{
-			if (map[x][y - 2] == 0 || map[x][y - 2] == 3)
+			if (map1[x][y - 2] == 0 || map1[x][y - 2] == 3)
 			{
-				map[x][y] -= 5;
-				map[x][y - 1] += 1;
-				map[x][y - 2] += 4;
+				map1[x][y] -= 5;
+				map1[x][y - 1] += 1;
+				map1[x][y - 2] += 4;
 			}
 		}
 		break;
 	case 'w':
 	case 'W':
-		if (map[x - 1][y] == 0 || map[x - 1][y] == 3)
+		if (map1[x - 1][y] == 0 || map1[x - 1][y] == 3)
 		{
-			map[x][y] -= 5;
-			map[x - 1][y] += 5;
+			map1[x][y] -= 5;
+			map1[x - 1][y] += 5;
 		}
-		else if (map[x - 1][y] == 4 || map[x - 1][y] == 7)
+		else if (map1[x - 1][y] == 4 || map1[x - 1][y] == 7)
 		{
-			if (map[x - 2][y] == 0 || map[x - 2][y] == 3)
+			if (map1[x - 2][y] == 0 || map1[x - 2][y] == 3)
 			{
-				map[x][y] -= 5;
-				map[x - 1][y] += 1;
-				map[x - 2][y] += 4;
+				map1[x][y] -= 5;
+				map1[x - 1][y] += 1;
+				map1[x - 2][y] += 4;
 			}
 		}
 		break;
 	case 's':
 	case 'S':
-		if (map[x + 1][y] == 0 || map[x + 1][y] == 3)
+		if (map1[x + 1][y] == 0 || map1[x + 1][y] == 3)
 		{
-			map[x][y] -= 5;
-			map[x + 1][y] += 5;
+			map1[x][y] -= 5;
+			map1[x + 1][y] += 5;
 		}
-		else if (map[x + 1][y] == 4 || map[x + 1][y] == 7)
+		else if (map1[x + 1][y] == 4 || map1[x + 1][y] == 7)
 		{
-			if (map[x + 2][y] == 0 || map[x + 2][y] == 3)
+			if (map1[x + 2][y] == 0 || map1[x + 2][y] == 3)
 			{
-				map[x][y] -= 5;
-				map[x + 1][y] += 1;
-				map[x + 2][y] += 4;
+				map1[x][y] -= 5;
+				map1[x + 1][y] += 1;
+				map1[x + 2][y] += 4;
 			}
 		}
 		break;
 	case 'd':
 	case 'D':
-		if (map[x][y + 1] == 0 || map[x][y + 1] == 3)
+		if (map1[x][y + 1] == 0 || map1[x][y + 1] == 3)
 		{
-			map[x][y] -= 5;
-			map[x][y + 1] += 5;
+			map1[x][y] -= 5;
+			map1[x][y + 1] += 5;
 		}
-		else if (map[x][y + 1] == 4 || map[x][y + 1] == 7)
+		else if (map1[x][y + 1] == 4 || map1[x][y + 1] == 7)
 		{
-			if (map[x][y + 2] == 0 || map[x][y + 2] == 3)
+			if (map1[x][y + 2] == 0 || map1[x][y + 2] == 3)
 			{
-				map[x][y] -= 5;
-				map[x][y + 1] += 1;
-				map[x][y + 2] += 4;
+				map1[x][y] -= 5;
+				map1[x][y + 1] += 1;
+				map1[x][y + 2] += 4;
 			}
 		}
 		break;
@@ -157,7 +157,7 @@ int win()
 	{
 		for (int j = 0; j < 15; j++)
 		{
-			if (map[i][j] == 7)
+			if (map1[i][j] == 7)
 				m++;
 		}
 	}
