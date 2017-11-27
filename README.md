@@ -1,4 +1,2 @@
-# Sokoban
-小游戏比赛
-
-this is a LG project
+#2017小游戏制作大赛-推箱子
+非常的简单
