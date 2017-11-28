@@ -21,6 +21,7 @@ int main()
 	return 0;
 }
 //画地图
+//1墙壁 3终点 4箱子 5人 7现在在终点 8人在终点
 void dmap()
 {
 	for (int i = 0; i < 11; i++)
@@ -29,9 +30,6 @@ void dmap()
 		{
 			switch (map[i][j])
 			{
-			case 0:
-				putimage(j * 30, i * 30, &nothing);
-				break;
 			case 1:
 				putimage(j * 30, i * 30, &wall);
 				break;
@@ -70,87 +68,90 @@ void play()
 			}
 		}
 	}
+
+
 	int ch;
-	ch = _getch();
-	switch (ch)
-	{
-	case 'a':
-	case 'A':
-		if (map[x][y - 1] == 0 || map[x][y - 1] == 3)
+	if (_kbhit) {
+		ch = _getch();
+		switch (ch)
 		{
-			map[x][y] -= 5;
-			map[x][y - 1] += 5;
-		}
-		else if (map[x][y - 1] == 4 || map[x][y - 1] == 7)
-		{
-			if (map[x][y - 2] == 0 || map[x][y - 2] == 3)
+		case 'a':
+		case 'A':
+			if (map[x][y - 1] == 0 || map[x][y - 1] == 3)
 			{
 				map[x][y] -= 5;
-				map[x][y - 1] += 1;
-				map[x][y - 2] += 4;
+				map[x][y - 1] += 5;
 			}
-		}
-		break;
-	case 'w':
-	case 'W':
-		if (map[x - 1][y] == 0 || map[x - 1][y] == 3)
-		{
-			map[x][y] -= 5;
-			map[x - 1][y] += 5;
-		}
-		else if (map[x - 1][y] == 4 || map[x - 1][y] == 7)
-		{
-			if (map[x - 2][y] == 0 || map[x - 2][y] == 3)
+			else if (map[x][y - 1] == 4 || map[x][y - 1] == 7)
+			{
+				if (map[x][y - 2] == 0 || map[x][y - 2] == 3)
+				{
+					map[x][y] -= 5;
+					map[x][y - 1] += 1;
+					map[x][y - 2] += 4;
+				}
+			}
+			break;
+		case 'w':
+		case 'W':
+			if (map[x - 1][y] == 0 || map[x - 1][y] == 3)
 			{
 				map[x][y] -= 5;
-				map[x - 1][y] += 1;
-				map[x - 2][y] += 4;
+				map[x - 1][y] += 5;
 			}
-		}
-		break;
-	case 's':
-	case 'S':
-		if (map[x + 1][y] == 0 || map[x + 1][y] == 3)
-		{
-			map[x][y] -= 5;
-			map[x + 1][y] += 5;
-		}
-		else if (map[x + 1][y] == 4 || map[x + 1][y] == 7)
-		{
-			if (map[x + 2][y] == 0 || map[x + 2][y] == 3)
+			else if (map[x - 1][y] == 4 || map[x - 1][y] == 7)
+			{
+				if (map[x - 2][y] == 0 || map[x - 2][y] == 3)
+				{
+					map[x][y] -= 5;
+					map[x - 1][y] += 1;
+					map[x - 2][y] += 4;
+				}
+			}
+			break;
+		case 's':
+		case 'S':
+			if (map[x + 1][y] == 0 || map[x + 1][y] == 3)
 			{
 				map[x][y] -= 5;
-				map[x + 1][y] += 1;
-				map[x + 2][y] += 4;
+				map[x + 1][y] += 5;
 			}
-		}
-		break;
-	case 'd':
-	case 'D':
-		if (map[x][y + 1] == 0 || map[x][y + 1] == 3)
-		{
-			map[x][y] -= 5;
-			map[x][y + 1] += 5;
-		}
-		else if (map[x][y + 1] == 4 || map[x][y + 1] == 7)
-		{
-			if (map[x][y + 2] == 0 || map[x][y + 2] == 3)
+			else if (map[x + 1][y] == 4 || map[x + 1][y] == 7)
+			{
+				if (map[x + 2][y] == 0 || map[x + 2][y] == 3)
+				{
+					map[x][y] -= 5;
+					map[x + 1][y] += 1;
+					map[x + 2][y] += 4;
+				}
+			}
+			break;
+		case 'd':
+		case 'D':
+			if (map[x][y + 1] == 0 || map[x][y + 1] == 3)
 			{
 				map[x][y] -= 5;
-				map[x][y + 1] += 1;
-				map[x][y + 2] += 4;
+				map[x][y + 1] += 5;
 			}
+			else if (map[x][y + 1] == 4 || map[x][y + 1] == 7)
+			{
+				if (map[x][y + 2] == 0 || map[x][y + 2] == 3)
+				{
+					map[x][y] -= 5;
+					map[x][y + 1] += 1;
+					map[x][y + 2] += 4;
+				}
+			}
+			break;
+		default:
+			break;
 		}
-		break;
-	default:
-		break;
 	}
 
 }
 //加载图片
 void loadimage()
 {
-	loadimage(&nothing, _T("./blank.png"), 30, 30);
 	loadimage(&wall, _T("./WALL.jpg"), 30, 30);
 	loadimage(&ending, _T("./ENDPOINT.jpg"), 30, 30);
 	loadimage(&box, _T("./BOX.jpg"), 30, 30);
@@ -162,6 +163,7 @@ void loadmapp()
 {
 	if (check_point_num == 0) {
 		ifstream is("1.txt");
+		maps = 4;
 		for (int i = 0; i < 11; i++) {
 			for (int j = 0; j < 15; j++) {
 				is >> map[i][j];
@@ -219,21 +221,22 @@ void loadmapp()
 //通关提示
 int win()
 {
-	int m = 0;
+	int cnt = 0;
 	for (int i = 0; i < 11; i++)
 	{
 		for (int j = 0; j < 15; j++)
 		{
 			if (map[i][j] == 7)
-				m++;
+				cnt++;
 		}
 	}
-	if (m == 6)
+	if (cnt == maps)
 	{
-		cleardevice();
 		setbkcolor(BLACK);
-		outtextxy(WIDTH / 2, HEIGHT / 2, _T("恭喜你,通关了！"));
-		outtextxy(WIDTH / 2, (HEIGHT / 2) - 1, _T("输入Y下一个，其他键退出"));
+		cleardevice();
+		outtextxy(WIDTH / 2 - 10, HEIGHT / 2, _T("恭喜你,通关了！"));
+		_getch();
+		outtextxy(WIDTH / 2 - 10, (HEIGHT / 2) - 1, _T("输入Y下一个，其他键退出"));
 		int key;
 		key = _getch();
 		if (key == 'y' || key == 'Y') {
