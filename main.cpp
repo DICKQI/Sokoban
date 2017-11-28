@@ -1,8 +1,10 @@
 #include "function-and-init.h"
-//ä¸»å‡½æ•°
+const int WIDTH = 600, HEIGHT = 480;
+//Ö÷º¯Êı
 int main()
 {
-	initgraph(600, 480);
+	loadmapp();
+	initgraph(WIDTH, HEIGHT);
 	setbkcolor(WHITE);
 	loadimage();
 	cleardevice();
@@ -10,7 +12,6 @@ int main()
 	{
 		BeginBatchDraw();
 		cleardevice();
-		loadmapp();
 		dmap();
 		EndBatchDraw();
 		win();
@@ -19,8 +20,7 @@ int main()
 	getchar();
 	return 0;
 }
-
-//ç”»åœ°å›¾
+//»­µØÍ¼
 void dmap()
 {
 	for (int i = 0; i < 11; i++)
@@ -55,7 +55,7 @@ void dmap()
 		printf("\n");
 	}
 }
-//ç©æ³•æ“ä½œ
+//Íæ·¨²Ù×÷
 void play()
 {
 	int x, y;
@@ -147,7 +147,7 @@ void play()
 	}
 
 }
-//åŠ è½½å›¾ç‰‡
+//¼ÓÔØÍ¼Æ¬
 void loadimage()
 {
 	loadimage(&nothing, _T("./blank.png"), 30, 30);
@@ -157,17 +157,66 @@ void loadimage()
 	loadimage(&human, _T("./character.jpg"), 30, 30);
 	loadimage(&dbox, _T("./DARKBOX.jpg"), 30, 30);
 }
-//åŠ è½½åœ°å›¾
+//¼ÓÔØµØÍ¼ÎÄ¼ş
 void loadmapp()
 {
-	ifstream is("1.txt");
-	for (int i = 0; i < 11; i++) {
-		for (int j = 0; j < 15; j++) {
-			is >> map[i][j];
+	if (check_point_num == 0) {
+		ifstream is("1.txt");
+		for (int i = 0; i < 11; i++) {
+			for (int j = 0; j < 15; j++) {
+				is >> map[i][j];
+			}
 		}
+		is.close();
 	}
+	else if (check_point_num == 1) {
+		ifstream is("2.txt");
+		for (int i = 0; i < 11; i++) {
+			for (int j = 0; j < 15; j++) {
+				is >> map[i][j];
+			}
+		}
+		is.close();
+	}
+	else if (check_point_num == 2) {
+		ifstream is("3.txt");
+		for (int i = 0; i < 11; i++) {
+			for (int j = 0; j < 15; j++) {
+				is >> map[i][j];
+			}
+		}
+		is.close();
+	}
+	else if (check_point_num == 3) {
+		ifstream is("4.txt");
+		for (int i = 0; i < 11; i++) {
+			for (int j = 0; j < 15; j++) {
+				is >> map[i][j];
+			}
+		}
+		is.close();
+	}
+	else if (check_point_num == 4) {
+		ifstream is("5.txt");
+		for (int i = 0; i < 11; i++) {
+			for (int j = 0; j < 15; j++) {
+				is >> map[i][j];
+			}
+		}
+		is.close();
+	}
+	else if (check_point_num == 5) {
+		ifstream is("6.txt");
+		for (int i = 0; i < 11; i++) {
+			for (int j = 0; j < 15; j++) {
+				is >> map[i][j];
+			}
+		}
+		is.close();
+	}
+	return;
 }
-//é€šå…³æç¤º
+//Í¨¹ØÌáÊ¾
 int win()
 {
 	int m = 0;
@@ -181,11 +230,17 @@ int win()
 	}
 	if (m == 6)
 	{
-		MessageBox(NULL, L"ä½ èµ¢äº†ï¼è¾“å…¥Yç»§ç»­ä¸‹ä¸€å…³å¡ï¼Œå…¶ä»–é”®é€€å‡º", L"23333", MB_OK);
-		int a;
-		a = _getch();
-		if (a == 'y' || a == 'Y') {
+		cleardevice();
+		setbkcolor(BLACK);
+		outtextxy(WIDTH / 2, HEIGHT / 2, _T("¹§Ï²Äã,Í¨¹ØÁË£¡"));
+		outtextxy(WIDTH / 2, (HEIGHT / 2) - 1, _T("ÊäÈëYÏÂÒ»¸ö£¬ÆäËû¼üÍË³ö"));
+		int key;
+		key = _getch();
+		if (key == 'y' || key == 'Y') {
 			check_point_num++;
+			loadmapp();
+			setbkcolor(WHITE);
+			return 1;
 		}
 		else {
 			closegraph();

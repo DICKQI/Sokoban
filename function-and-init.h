@@ -1,26 +1,26 @@
 #pragma once
-//æ¨ç®±å­å°æ¸¸æˆ
-//ä½œè€… kk rr
-//æœ€åä¿®æ”¹æ—¥æœŸï¼š17-11-28
+//ÍÆÏä×ÓĞ¡ÓÎÏ·
+//×÷Õß kk rr
+//×îºóĞŞ¸ÄÈÕÆÚ£º17-11-28
 #include <stdio.h>
 #include <graphics.h>
 #include <conio.h>
 #include <iostream>
 #include <fstream>
 using namespace std;
-//å®šä¹‰åœ°å›¾
+//¶¨ÒåµØÍ¼
 int map[11][15];
-//å…³å¡æ•°
+//¹Ø¿¨Êı
 int check_point_num = 0;
-//å›¾ç‰‡å¯¹è±¡
+//Í¼Æ¬¶ÔÏó
 IMAGE nothing, wall, box, human, dbox, ending;
-//åŠ è½½åœ°å›¾æ–‡æ¡£
-void loadmapp();
-//ç”»åœ°å›¾
+//»­µØÍ¼
 void dmap();
-//é€šå…³
+//¼ÓÔØµØÍ¼
+void loadmapp();
+//Í¨¹Ø
 int win();
-//åŠ è½½å›¾ç‰‡
+//¼ÓÔØÍ¼Æ¬
 void loadimage();
-//ç©æ³•æ“ä½œ
+//Íæ·¨²Ù×÷
 void play();
