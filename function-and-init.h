@@ -11,12 +11,13 @@
 using namespace std;
 //定义地图
 int map[11][15];
-
+//数字代替方向 1左 2右 3上 4下
+int direction = 4;//默认向下
 //关卡数
 int check_point_num = 0;
 int maps;
 //图片对象
-IMAGE nothing, wall, box, human, dbox, ending;
+IMAGE nothing, wall, box, dbox, ending, lehuman, rihuman, uphuman, dohuman;
 //画地图
 void dmap();
 //加载地图

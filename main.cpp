@@ -40,13 +40,35 @@ void dmap()
 				putimage(j * 30, i * 30, &box);
 				break;
 			case 5:
-				putimage(j * 30, i * 30, &human);
+				if (direction == 1) {
+					putimage(j * 30, i * 30, &lehuman);
+				}
+				else if (direction == 2) {
+					putimage(j * 30, i * 30, &rihuman);
+				}
+				else if (direction == 3) {
+					putimage(j * 30, i * 30, &uphuman);
+				}
+				else if (direction == 4) {
+					putimage(j * 30, i * 30, &dohuman);
+				}
 				break;
 			case 7:
 				putimage(j * 30, i * 30, &dbox);
 				break;
 			case 8:
-				putimage(j * 30, i * 30, &human);
+				if (direction == 1) {
+					putimage(j * 30, i * 30, &lehuman);
+				}
+				else if (direction == 2) {
+					putimage(j * 30, i * 30, &rihuman);
+				}
+				else if (direction == 3) {
+					putimage(j * 30, i * 30, &uphuman);
+				}
+				else if (direction == 4) {
+					putimage(j * 30, i * 30, &dohuman);
+				}
 				break;
 			}
 		}
@@ -77,6 +99,7 @@ void play()
 		{
 		case 'a':
 		case 'A':
+			direction = 1;
 			if (map[x][y - 1] == 0 || map[x][y - 1] == 3)
 			{
 				map[x][y] -= 5;
@@ -94,6 +117,7 @@ void play()
 			break;
 		case 'w':
 		case 'W':
+			direction = 3;
 			if (map[x - 1][y] == 0 || map[x - 1][y] == 3)
 			{
 				map[x][y] -= 5;
@@ -111,6 +135,7 @@ void play()
 			break;
 		case 's':
 		case 'S':
+			direction = 4;
 			if (map[x + 1][y] == 0 || map[x + 1][y] == 3)
 			{
 				map[x][y] -= 5;
@@ -128,6 +153,7 @@ void play()
 			break;
 		case 'd':
 		case 'D':
+			direction = 2;
 			if (map[x][y + 1] == 0 || map[x][y + 1] == 3)
 			{
 				map[x][y] -= 5;
@@ -155,8 +181,11 @@ void loadimage()
 	loadimage(&wall, _T("./WALL.jpg"), 30, 30);
 	loadimage(&ending, _T("./ENDPOINT.jpg"), 30, 30);
 	loadimage(&box, _T("./BOX.jpg"), 30, 30);
-	loadimage(&human, _T("./character.jpg"), 30, 30);
 	loadimage(&dbox, _T("./DARKBOX.jpg"), 30, 30);
+	loadimage(&lehuman, _T("./lehuman.jpg"), 30, 30);
+	loadimage(&rihuman, _T("./rihuman.jpg"), 30, 30);
+	loadimage(&uphuman, _T("./uphuman.jpg"), 30, 30);
+	loadimage(&dohuman, _T("./dohuman.jpg"), 30, 30);
 }
 //加载地图文件
 void loadmapp()
