@@ -1,10 +1,11 @@
 #include "function-and-init.h"
-const int WIDTH = 600, HEIGHT = 480;
+const int WIDTH = 550, HEIGHT = 480;
 //主函数
 int main()
 {
 	loadmapp();
 	initgraph(WIDTH, HEIGHT);
+	welcome();
 	setbkcolor(WHITE);
 	loadimage();
 	cleardevice();
@@ -20,8 +21,32 @@ int main()
 	getchar();
 	return 0;
 }
+//欢迎界面
+void welcome()
+{
+	cleardevice();
+	loadimage(&bk, _T("./bk.jpg"), 550, 480);
+	putimage(0, 0, &bk);
+	setcolor(YELLOW);
+	setfont(16, 0, _T("黑体"));
+	outtextxy(225, 125, _T("ALG协会出品"));
+	setfont(64, 0, _T("黑体"));
+	outtextxy(120, 50, _T("推箱子游戏"));
+	setfont(16, 0, _T("宋体"));
+	int c = 255;
+	while (!_kbhit()) {
+		setcolor(RGB(c, 0, 0));
+		outtextxy(230, 400, _T("按任意键继续"));
+		c -= 88;
+		if (c < 0) {
+			c = 255;
+		}
+		Sleep(120);
+	}
+	_getch();
+	cleardevice();
+}
 //画地图
-//1墙壁 3终点 4箱子 5人 7现在在终点 8人在终点
 void dmap()
 {
 	for (int i = 0; i < 11; i++)
@@ -79,6 +104,7 @@ void dmap()
 void play()
 {
 	int x, y;
+	//找到人在哪
 	for (int i = 0; i < 11; i++)
 	{
 		for (int j = 0; j < 15; j++)
@@ -192,7 +218,7 @@ void loadmapp()
 {
 	if (check_point_num == 0) {
 		ifstream is("1.txt");
-		maps = 4;
+		maps = 6;
 		for (int i = 0; i < 11; i++) {
 			for (int j = 0; j < 15; j++) {
 				is >> map[i][j];
@@ -201,6 +227,7 @@ void loadmapp()
 		is.close();
 	}
 	else if (check_point_num == 1) {
+		maps = 4;
 		ifstream is("2.txt");
 		for (int i = 0; i < 11; i++) {
 			for (int j = 0; j < 15; j++) {
@@ -251,10 +278,8 @@ void loadmapp()
 int win()
 {
 	int cnt = 0;
-	for (int i = 0; i < 11; i++)
-	{
-		for (int j = 0; j < 15; j++)
-		{
+	for (int i = 0; i < 11; i++){
+		for (int j = 0; j < 15; j++){
 			if (map[i][j] == 7)
 				cnt++;
 		}
@@ -263,9 +288,11 @@ int win()
 	{
 		setbkcolor(BLACK);
 		cleardevice();
-		outtextxy(WIDTH / 2 - 10, HEIGHT / 2, _T("恭喜你,通关了！"));
+		setcolor(GREEN);
+		setfont(25, 0, _T("黑体"));
+		outtextxy(WIDTH / 2 - 100, HEIGHT / 2 - 50, _T("恭喜你,通关了！"));
 		_getch();
-		outtextxy(WIDTH / 2 - 10, (HEIGHT / 2) - 1, _T("输入Y下一个，其他键退出"));
+		outtextxy(WIDTH / 2 - 120, (HEIGHT / 2) - 50, _T("输入Y下一个，其他键退出"));
 		int key;
 		key = _getch();
 		if (key == 'y' || key == 'Y') {
@@ -275,6 +302,7 @@ int win()
 			return 1;
 		}
 		else {
+			outtextxy(WIDTH / 2 - 100, HEIGHT / 2 - 50, _T("恭喜你,通关了！"));
 			closegraph();
 			exit(0);
 		}
