@@ -19,6 +19,8 @@ int check_point_num = 0;
 int maps;//终点数
 //图片对象
 IMAGE bk, nothing, wall, box, dbox, ending, lehuman, rihuman, uphuman, dohuman;
+//记录步数
+int steps = 0;
 //欢迎界面
 void welcome();
 //画地图
@@ -32,3 +34,7 @@ int win();
 void loadimage();
 //玩法操作
 void play();
+//最高分
+int mins;
+int Minimum_number_of_steps();
+void LoadMinnumberFile();

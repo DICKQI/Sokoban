@@ -116,8 +116,16 @@ void play()
 			}
 		}
 	}
-
-
+	TCHAR sc[1000], dc[1000];
+	LoadMinnumberFile();
+	_stprintf(dc, _T("%d"), mins);
+	_stprintf(sc, _T("%d"), steps);
+	setcolor(BLACK);
+	setfont(16, 0, _T("宋体"));
+	outtextxy(400, 10, _T("当前步数："));
+	outtextxy(480, 10, (TCHAR *)sc);
+	outtextxy(400, 30, _T("本地图最佳记录："));
+	outtextxy(520, 30, (TCHAR *)dc);
 	int ch;
 	if (_kbhit) {
 		ch = _getch();
@@ -130,6 +138,7 @@ void play()
 			{
 				map[x][y] -= 5;
 				map[x][y - 1] += 5;
+				steps++;
 			}
 			else if (map[x][y - 1] == 4 || map[x][y - 1] == 7)
 			{
@@ -138,6 +147,7 @@ void play()
 					map[x][y] -= 5;
 					map[x][y - 1] += 1;
 					map[x][y - 2] += 4;
+					steps++;
 				}
 			}
 			break;
@@ -148,6 +158,7 @@ void play()
 			{
 				map[x][y] -= 5;
 				map[x - 1][y] += 5;
+				steps++;
 			}
 			else if (map[x - 1][y] == 4 || map[x - 1][y] == 7)
 			{
@@ -156,6 +167,7 @@ void play()
 					map[x][y] -= 5;
 					map[x - 1][y] += 1;
 					map[x - 2][y] += 4;
+					steps++;
 				}
 			}
 			break;
@@ -166,6 +178,7 @@ void play()
 			{
 				map[x][y] -= 5;
 				map[x + 1][y] += 5;
+				steps++;
 			}
 			else if (map[x + 1][y] == 4 || map[x + 1][y] == 7)
 			{
@@ -174,6 +187,7 @@ void play()
 					map[x][y] -= 5;
 					map[x + 1][y] += 1;
 					map[x + 2][y] += 4;
+					steps++;
 				}
 			}
 			break;
@@ -184,6 +198,7 @@ void play()
 			{
 				map[x][y] -= 5;
 				map[x][y + 1] += 5;
+				steps++;
 			}
 			else if (map[x][y + 1] == 4 || map[x][y + 1] == 7)
 			{
@@ -192,6 +207,7 @@ void play()
 					map[x][y] -= 5;
 					map[x][y + 1] += 1;
 					map[x][y + 2] += 4;
+					steps++;
 				}
 			}
 			break;
@@ -274,7 +290,48 @@ void loadmapp()
 	}
 	return;
 }
-//通关提示
+//最佳记录计算
+int Minimum_number_of_steps()
+{
+	if (check_point_num == 0) {
+		int tmp;
+		ifstream is("min1.txt");
+		is >> tmp;
+		is.close();
+		if (steps < tmp) {
+			outtextxy(WIDTH / 2 - 100, HEIGHT / 2 - 100, _T("牛逼啊破纪录了"));
+			ofstream outfile;
+			outfile.open("min1.txt");
+			outfile << steps;
+			return 1;
+		}
+		return 0;
+	}
+	else if (check_point_num == 1) {
+		int tmp;
+		ifstream is("min2.txt");
+		is >> tmp;
+		is.close();
+		if (steps < tmp) {
+			ofstream outfile;
+			outfile.open("min2.txt");
+			outfile << steps;
+		}
+	}
+}
+//读取最佳记录文件
+void LoadMinnumberFile()
+{
+	if (check_point_num == 0) {
+		ifstream iss("min1.txt");
+		iss >> mins;
+	}
+	else if (check_point_num == 1) {
+		ifstream iss("min2.txt");
+		iss >> mins;
+	}
+}
+//通关
 int win()
 {
 	int cnt = 0;
@@ -288,11 +345,12 @@ int win()
 	{
 		setbkcolor(BLACK);
 		cleardevice();
-		setcolor(GREEN);
 		setfont(25, 0, _T("黑体"));
+		setcolor(GREEN);
+		Minimum_number_of_steps();
 		outtextxy(WIDTH / 2 - 100, HEIGHT / 2 - 50, _T("恭喜你,通关了！"));
 		_getch();
-		outtextxy(WIDTH / 2 - 120, (HEIGHT / 2) - 50, _T("输入Y下一个，其他键退出"));
+		outtextxy(WIDTH / 2 - 150, (HEIGHT / 2) - 50, _T("输入Y下一个，其他键退出"));
 		int key;
 		key = _getch();
 		if (key == 'y' || key == 'Y') {
